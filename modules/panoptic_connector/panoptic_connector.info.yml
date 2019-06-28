@@ -1,0 +1,12 @@
+name: Panoptic Connector
+description: Allows secure communication between Panoptic server and website
+package: Development
+version: 8.x.2.0
+type: module
+core: 8.x
+
+dependencies:
+  - update
+
+configure: panoptic_connector.settings
+

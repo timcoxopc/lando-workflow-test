@@ -1,0 +1,25 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      css/responsive.css: {}
+  js:
+    js/custom.js: {}
+hide-paypal:
+  js:
+    js/hide-paypal.js: {}
+fonts:
+  css:
+    theme:
+      //fonts.googleapis.com/css?family=Roboto:400,400italic,700,300,700italic&subset=latin-ext,latin,greek: { type: external }
+
+font-awesome:
+  remote: https://fortawesome.github.io/Font-Awesome/
+  version: 4.5.0
+  license:
+    name: MIT
+    url: https://fortawesome.github.io/Font-Awesome/license/
+    gpl-compatible: true
+  css:
+    theme:
+      https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css: { type: external, minified: true }

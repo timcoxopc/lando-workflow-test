@@ -1,0 +1,5 @@
+panoptic_connector.config:
+ title: 'Centrepay Deductions Authority Form'
+ description: ''
+ route_name: ahl_authority.form
+ weight: 10

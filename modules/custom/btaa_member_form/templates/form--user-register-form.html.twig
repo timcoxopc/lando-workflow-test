@@ -1,0 +1,116 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+
+
+{{ attach_library('btaa_member_form/global') }}
+
+
+<div class="registration-form">
+
+
+<div class="subscribe">
+    <h2>Subscribe</h2>
+    
+
+<p>As a Subscriber you can opt to receive a customised <strong>Welcome Pack</strong>, and can elect to receive your own copy of any, or all of, the <strong>BTAA e-News</strong><b>, </b><strong>our BTAA Magazine</strong>, 
+the <strong>International Brain Tumour Alliance  e-News</strong> and the <strong>IBTA Magazine</strong>.</p>
+
+<p>The <strong>BTAA e-News</strong> is emailed to you monthly, and is designed to help you engage on a regular basis with the brain tumour community. 
+We publish articles on subjects such as quality of life, exercise, diet, financial assistance, news from other organisations, events you might be interested in, 
+brain health, and complimentary and alternate therapies. We also provide articles on clinical trials, support projects, medical research, government announcements, and very importantly patient and carer stories.</p>
+
+<p>The <strong>BTAA Magazine</strong> is our biannual magazine, printed to coincide with Brain Tumour Awareness Month in May, and the annual COGNO Conference in October each year. It can be emailed, or mailed to your postal address.</p>
+
+<p>The<b> </b><strong>International Brain Tumour Alliance (IBTA) e-News</strong> is emailed monthly, and 
+highlights items of interest to the international brain tumour community and is emailed to nearly 6,000 recipients. It gives a round-up of the 
+latest research and treatment developments, news about brain tumour patient organisations around the world, and key forthcoming neuro-oncology scientific and patient conferences. </p>
+
+<p>The <strong>IBTA Magazine</strong> is the annual IBTA magazine,  and can be mailed to your postal address.</p>
+
+   
+<div class="hard-copy form-item js-form-item form-wrapper js-form-wrapper panel panel-default">
+   
+    <div class="panel-heading">
+        <div class="panel-title">Welcome Pack Requested Hard Copy Items</div>
+    </div>
+    <div class="panel-body">
+    <p>{{ form.field_adult_brain_tumour_primer.widget }}</p>
+    <p>{{ form.field_paediatric_handbook.widget }} </p>
+    <p>{{ form.field_meningioma_booklet.widget }} </p>
+
+    </div>
+</div>
+
+
+    
+    {{ form.field_mailchimp_subscription.widget }}
+    {{ form.field_mailed_newsletter.widget }}
+    {{ form.field_ibta_enews.widget }}
+    {{ form.field_ibta_magazine.widget }}
+
+ 
+</div>
+
+<h2>Account Details</h2>
+
+<p>Creating an account on the BTAA website lets you subscribe to our e-News, Magazines  and IBTA Magazine</p>
+<p>By becoming a member of our website, you can also become a member of BTAA.</p>
+{{ form.account.mail }}
+{{ form.account.name }}
+{{ form.account.pass }}
+
+<div class="contact-details">
+<h2>Contact Details</h2>
+{{ form.field_first_name.widget }}
+{{ form.field_last_name.widget }}
+{{ form.field_mobile_phone.widget }}
+{{ form.field_user_home_phone.widget }}
+{{ form.field_organisation.widget }}
+{{ form.field_job_title.widget }}
+{{ form.field_requester_category.widget }}
+{{ form.field_other.widget }}
+</div>
+
+<div class="address">
+<h2>Address Details</h2>
+<p>Your address is only needed if you wish to receive mail from BTAA</p>
+{{ form.field_address.widget }}
+    {{ form.field_address_2.widget }}
+{{ form.field_suburb_town_city.widget }}
+{{ form.field_postcode.widget }}
+    {{ form.field_state.widget }}
+{{ form.field_country.widget }}
+</div>
+
+<div class="child-details">
+    <h2>Child Details</h2>
+    <p>If you are requesting the paediatric resource (as you have a child diagnosed with a brain tumour), please provide some additional details so we can include a small gift for the child and any siblings.</p>
+    {{ form.field_child_age.widget }}
+    {{ form.field_child_gender.widget }}
+    {{ form.field_sibling_details.widget }}
+    {{ form.field_how_many_siblings_does_thi.widget }}
+</div>
+<div class="tandc">
+<h2>BTAA Terms and Conditions</h2>
+<p>Please read the <a href="/sites/default/files/files/BTAARules2016.pdf">BTAA Privacy Policy</a></p>
+{{ form.field_i_have_read_and_agree_with.widget }}
+    </div>
+
+<div class="submit">
+{{ form.form_build_id }}
+{{ form.form_id }}
+
+{{ form.actions }}
+</div>
+
+</div>

@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * @see template_preprocess_paypal_block()
+ *
+ * Available variables:
+ * - types: PayPal donation types assoc array.
+ * - service: PayPal service.
+ * - button: Button label.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% if types %}
+  <div class="paypal-block-wrapper">
+    {% for type in types %}
+      {% if type and loop.index == 2 %}
+        <div class="donation-block width-{{ 100 / types|length }}">
+          <form action="https://www.{{ service }}paypal.com/cgi-bin/webscr" method="post" target="_blank" class="donation-form">
+            {% if type.name == 'single' %}
+              <input type="hidden" name="cmd" value="_donations" />
+            {% elseif type.name == 'recurring' %}
+              <input recurring="yes" type="hidden" name="cmd" value="_xclick-subscriptions" />
+              <input recurring="yes" type="hidden" name="a3" value="" class="amount-holder" />
+              <input recurring="yes" type="hidden" name="p3" value="{{ type.duration }}" />
+              <input recurring="yes" type="hidden" name="t3" value="{{ type.unit }}" />
+            {% endif %}
+            <input recurring="no" type="hidden" name="cmd" value="_donations" />
+            <input type="hidden" name="lc" value="{{ type.currency_code }}" />
+            <input type="hidden" name="landing_page" value="billing" />
+            <input type="hidden" name="business" value="{{ type.receiver }}">
+            <input type="hidden" name="no_note" value="1">
+            <input type="hidden" name="return" value="{{ type.return }}" />
+            <input type="hidden" name="currency_code" value="{{ type.currency_code }}" />
+            <input type="hidden" name="amount" value="" class="donation-amount"/>
+            <input type="hidden" name="item_name" value="BTAA Donation" />
+            <ul>
+            {% if type.options|length %}
+              {% for option in type.options %}
+                <li>
+                  <input type="radio" name="select_opt_{{ type.name }}" id="{{ type.name }}-opt-{{ loop.index }}" value="{{ option }}" class="pre-defined" />
+                  <label for="{{ type.name }}-opt-{{ loop.index }}">
+                    <span class="currency">{{ type.currency_sign }}</span> {{ option }}
+                  </label>
+                </li>
+              {% endfor %}
+            {% endif %}
+            
+            {% if type.custom %}
+              <li>
+                <input type="radio" name="select_opt_{{ type.name }}" id="{{ type.name }}-opt-0" />
+                <label for="{{ type.name }}-opt-0">
+                  <span class="currency">Other Amount {{ type.currency_sign }} </span>
+                  <input type="text" name="other" size="6" value="" class="other" />
+                </label>
+              </li>
+            {% endif %}
+            
+            </ul>
+            <div class="recuring-checkbox">
+             <input type="checkbox" name="select_opt_recurring" id="recurring_yes" />
+             <label for="recurring_yes">
+                  <span class="recurring">I would like to make this a recurring payment</span>
+                </label>
+                </div>
+            <div class="message">
+            <h2>Leave us a comment</h2>
+            <label class="message-label" for="sponsor_name">Your Name:</label>
+            <input class="message-input" type="text" name="sponsor_name" id="sponsor_name"/><br>
+            <label class="message-label" for="sponsor_message">Your Message:</label>
+            <textarea class="message-textarea" name="sponsor_message" id="sponsor_message" placeholder="Enter message here..."></textarea>
+            </div>
+            <button type="button" id="{{ type.name }}-submit" value="{{ button }}" class="button form-submit donation-submit-button green-button">{{ button }}</button>
+            
+          </form>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

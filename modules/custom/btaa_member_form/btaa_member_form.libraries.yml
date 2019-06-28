@@ -1,0 +1,8 @@
+global:
+  css:
+    theme:
+      css/btaa_member_form.css: {}
+  js:
+    js/btaa_member_form.js: {}
+  dependencies:
+    - core/jquery

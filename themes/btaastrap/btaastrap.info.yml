@@ -1,0 +1,37 @@
+core: 8.x
+type: theme
+base theme: bootstrap
+
+name: 'btaastrap'
+description: 'Bootstrap theme for Brain Tumour Alliance Australia - built by OPC IT Pty Ltd'
+package: 'Bootstrap'
+
+regions:
+  header_top_highlighted: 'Header Top Highlighted'
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  banner: 'Banner'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  footer_top: 'Footer Top'
+  footer_first: 'Footer First'
+  footer_second: 'Footer Second'
+  footer_third: 'Footer Third'
+  footer_bottom: 'Footer Bottom'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries:
+  - 'btaastrap/global-styling'
+  - 'btaastrap/fonts'
+  - 'btaastrap/font-awesome'
+ 
+libraries-override:
+  commerce_cart/cart_block:
+    css:
+      layout:
+        css/commerce_cart.layout.css: false

@@ -1,0 +1,7 @@
+name: AHL Authority Form
+description: Contains the custom AHL Centrepay Deductions Authority Form
+package: Custom
+version: 8.x.0.1
+type: module
+core: 8.x
+

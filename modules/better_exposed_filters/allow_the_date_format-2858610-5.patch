@@ -1,0 +1,101 @@
+diff --git a/js/bef_datepickers.js b/js/bef_datepickers.js
+index 36fa448..e6c7a08 100644
+--- a/js/bef_datepickers.js
++++ b/js/bef_datepickers.js
+@@ -18,7 +18,7 @@
+         var opt = [];
+         $.each(befSettings.datepicker_options, function(key, val) {
+           if (key && val) {
+-            opt[key] = JSON.parse(val);
++            opt[key] = val;
+           }
+         });
+         $('.bef-datepicker').datepicker(opt);
+diff --git a/src/Plugin/views/exposed_form/BetterExposedFilters.php b/src/Plugin/views/exposed_form/BetterExposedFilters.php
+index 447d647..f187c53 100644
+--- a/src/Plugin/views/exposed_form/BetterExposedFilters.php
++++ b/src/Plugin/views/exposed_form/BetterExposedFilters.php
+@@ -508,6 +508,30 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
+         );
+       }
+ 
++      if ($bef_datepicker) {
++        $bef_options[$label]['more_options']['bef_date_format'] = array(
++          '#type' => 'select',
++          '#title' => $this->t('Date format'),
++          '#default_value' => isset($this->options['bef'][$label]['more_options']['bef_date_format'])?$this->options['bef'][$label]['more_options']['bef_date_format']:'m/d/Y',
++          '#options' => array(
++            'm/d/Y' => 'm/d/Y',
++            'd-m-Y' => 'd-m-Y',
++            '' => $this->t('Other'),
++          ),
++        );
++        $bef_options[$label]['more_options']['bef_date_format_other'] = array(
++          '#type' => 'textfield',
++          '#title' => $this->t('Custom Date Format'),
++          '#default_value' => !empty($this->options['bef'][$label]['more_options']['bef_date_format_other'])?$this->options['bef'][$label]['more_options']['bef_date_format_other']:'',
++          '#description' => $this->t('Use PHP date() formatting options enter your custom format. Also note that this format needs to be compatible strtotime() to return the correct timestamp'),
++          '#states' => array(
++            'visible' => array(
++              ':input[name="exposed_form_options[bef][' . $label . '][more_options][bef_date_format]"]' => array('value' => ''),
++            ),
++          ),
++        );
++      }
++
+       // Allow any filter to be moved into the secondary options element.
+       $bef_options[$label]['more_options']['is_secondary'] = array(
+         '#type' => 'checkbox',
+@@ -929,16 +953,15 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
+           $bef_add_js = TRUE;
+           $bef_js['datepicker'] = TRUE;
+           $bef_js['datepicker_options'] = array();
+-
+           if ((
+             // Single Date API-based input element.
+             isset($form[$field_id]['value']['#type'])
+-              && 'date_text' == $form[$field_id]['value']['#type']
++              && 'textfield' == $form[$field_id]['value']['#type']
+           )
+           // Double Date-API-based input elements such as "in-between".
+           || (isset($form[$field_id]['min']) && isset($form[$field_id]['max'])
+-            && 'date_text' == $form[$field_id]['min']['#type']
+-            && 'date_text' == $form[$field_id]['max']['#type']
++            && 'textfield' == $form[$field_id]['min']['#type']
++            && 'textfield' == $form[$field_id]['max']['#type']
+           )) {
+             /*
+              * Convert Date API formatting to jQuery formatDate formatting.
+@@ -1039,17 +1062,22 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
+             );
+ 
+             $format = '';
++            $element_options = array(
++              '#date_format' => !empty($options['more_options']['bef_date_format'])?$options['more_options']['bef_date_format']:$options['more_options']['bef_date_format_other']
++            );
+             if (isset($form[$field_id]['value'])) {
++              $form[$field_id] += $element_options;
+               $format = $form[$field_id]['value']['#date_format'];
+               $form[$field_id]['value']['#attributes']['class'][] = 'bef-datepicker';
+             }
+             else {
+               // Both min and max share the same format.
++              $form[$field_id]['min'] += $element_options;
+               $format = $form[$field_id]['min']['#date_format'];
+               $form[$field_id]['min']['#attributes']['class'][] = 'bef-datepicker';
+               $form[$field_id]['max']['#attributes']['class'][] = 'bef-datepicker';
+             }
+-            $bef_js['datepicker_options']['dateformat'] = str_replace(array_keys($convert), array_values($convert), $format);
++            $bef_js['datepicker_options']['dateFormat'] = str_replace(array_keys($convert), array_values($convert), $format);
+           }
+           else {
+             /*
+@@ -1530,6 +1558,8 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
+         'placeholder_text' => '',
+         'bef_select_all_none' => FALSE,
+         'bef_select_all_none_nested' => FALSE,
++        'bef_date_format' => 'm/d/Y', // default to the same default as jQueryUI.datepicker
++        'bef_date_format_other' => '',
+         'bef_collapsible' => FALSE,
+         'is_secondary' => FALSE,
+         'rewrite' => array(

@@ -1,0 +1,5 @@
+paypal_donations.configure:
+  title: 'PayPal donations'
+  description: 'Configure the PayPal donations.'
+  parent: system.admin_config_services
+  route_name: paypal_donations.configure

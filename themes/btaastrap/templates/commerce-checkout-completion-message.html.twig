@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the completion message.
+ *
+ * Available variables:
+ * - order_entity: The order entity.
+ * - payment_instructions: The payment instructions, if provided.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="checkout-complete">
+ <p>Thankyou for becoming a BTAA member. Your application will be reviewed and BTAA will be in contact with you.</p> 
+  <p></p>You can view your membership status on your profile page when logged in.</p>
+
+  {% if payment_instructions %}
+    <div class="checkout-complete__payment-instructions">
+      <h2>Payment instructions</h2>
+      {{ payment_instructions }}
+    </div>
+  {% endif %}
+  
+  <p><a href="/user">Return to Profile Page</a></p>
+</div>

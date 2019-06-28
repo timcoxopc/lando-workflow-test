@@ -1,0 +1,45 @@
+<?php
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Form\FormStateInterface;
+
+// Redirect to order form once an item has been added to the cart
+function btaa_cart_preprocess_status_messages(&$variables) {
+  //$current_path = \Drupal::request()->getRequestUri();
+  //echo $current_path;
+  if(isset($variables['message_list']['status']) && $variables['message_list']['status'] !== null){
+    redirect_order_to_cart($variables['message_list']['status']);
+  }
+}
+
+function redirect_order_to_cart(array $status_messages) {
+  $cart_path = Drupal\Core\Url::fromRoute('commerce_cart.page')->getInternalPath();;
+  foreach ($status_messages as $message) {
+    if(strpos($message->jsonSerialize(), 'href="/cart"') !== FALSE){
+      $response = new RedirectResponse(\Drupal::service('url_generator')
+      ->generateFromRoute('commerce_cart.page'));
+      $response->send();
+    }
+  }
+}
+
+// Prepopulate order form with user details.
+function btaa_cart_field_widget_form_alter(&$element, $form_state, $context) {
+  if(isset($context['form']['#id'])) {
+    if ($context['form']['#id'] === 'edit-payment-information-billing-information') {
+      // Load connected user
+      $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+      // Fill billing info fields with user fields values
+      $element['address']['#default_value']['organization'] = $user->get('field_organisation')->value;
+      $element['address']['#default_value']['address_line1'] = $user->get('field_address')->value;
+      $element['address']['#default_value']['address_line2'] = $user->get('field_address_2')->value;
+      $element['address']['#default_value']['postal_code'] = $user->get('field_postcode')->value;
+      $element['address']['#default_value']['given_name'] = $user->get('field_first_name')->value;;
+      $element['address']['#default_value']['family_name'] = $user->get('field_last_name')->value;;
+      $element['address']['#default_value']['administrative_area'] = $user->get('field_state')->value;
+      $element['address']['#default_value']['locality'] = $user->get('field_suburb_town_city')->value;
+    }
+  }
+}
+ 
+ 

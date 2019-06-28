@@ -1,0 +1,7 @@
+ahl_authority.form:
+ path: '/deduction_form'
+ defaults:
+   _title: 'Centrepay Deductions Authority Form'
+   _form: '\Drupal\ahl_authority\Form\DeductionsForm'
+ requirements:
+   _permission: 'access content'

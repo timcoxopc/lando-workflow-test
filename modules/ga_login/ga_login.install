@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Installation related functions for GA Login module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function ga_login_requirements($phase) {
+  $requirements = array();
+
+  $requirements['ga_login'] = array(
+    'title' => t('Google Login Authenticator'),
+  );
+
+  if (class_exists('\Otp\Otp')) {
+    $requirements['ga_login']['severity'] = REQUIREMENT_OK;
+  }
+  else {
+    $requirements['ga_login']['severity'] = REQUIREMENT_ERROR;
+    $requirements['ga_login']['description'] = t("Please install the 'christian-riesen/otp' library via composer. See the module README for instructions.");
+  }
+
+  return $requirements;
+}

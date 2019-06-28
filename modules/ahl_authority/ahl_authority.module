@@ -1,0 +1,13 @@
+<?php
+/**
+ * Implements hook_mail().
+ */
+function ahl_authority_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+
+  $message['from'] = \Drupal::config('system.site')->get('mail');
+  $message['subject'] = t('@title', array('@title' => $params['mail_title']), $options);
+  $message['body'][] = $params['message'];
+}

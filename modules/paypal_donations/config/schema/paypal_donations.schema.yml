@@ -1,0 +1,19 @@
+# Schema for the configuration files of the PayPal donations module.
+
+paypal_donations.settings:
+  type: config_object
+  label: 'PayPal donations'
+  mapping:
+    label:
+      type: mapping
+      label: 'Donation types'
+      mapping:
+        single:
+          type: label
+          label: 'Single donation label'
+        recurring:
+          type: label
+          label: 'Recurring donation label'
+    button:
+      type: label
+      label: 'Donate button text'

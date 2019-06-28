@@ -1,0 +1,35 @@
+/*Styles for btaa_member_form.html.twig*/
+
+.address.visible {
+    animation: 1s fadeIn;
+    animation-fill-mode: forwards;
+}
+
+.contact-details .form-item.js-form-item, .address .form-item.js-form-item, .child-details .form-item.js-form-item, .form-item.form-type-password {
+    width: 49%;
+    float: left;
+    margin-right: 10px;
+}
+
+.form-item.form-type-email {
+    width:49%;
+}
+
+.contact-details .js-form-item-field-other-0-value.visible {
+    animation: 1s fadeIn;
+    animation-fill-mode: forwards;
+}
+.tandc, .address , .child-details, .subscribe, .password-suggestions {
+    clear:both;
+}
+
+#user-register-form .form-required::after {
+    background-image: url('/themes/btaastrap/images/required.svg');
+    background-size: 10px 7px;
+    content: "";
+    display: inline-block;
+    vertical-align: super;
+    line-height: 1;
+    height: 7px;
+    width: 10px;
+}

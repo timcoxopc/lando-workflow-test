@@ -1,0 +1,14 @@
+panoptic_connector.config:
+ path: '/admin/config/development/panoptic-connector'
+ defaults:
+   _title: 'Panoptic Connector Settings'
+   _form: '\Drupal\panoptic_connector\Form\PanopticConnectorForm'
+ requirements:
+   _permission: 'administer site configuration'
+
+panoptic_connector.content:
+  path: '/panoptic-connector' 
+  defaults: 
+    _controller: '\Drupal\panoptic_connector\Controller\PCController::content'
+  requirements: 
+    _permission: 'access content' 

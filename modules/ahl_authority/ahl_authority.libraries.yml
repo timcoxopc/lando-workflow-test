@@ -1,0 +1,7 @@
+ahl_authority:
+  version: 1.x
+  css:
+    theme:
+      css/ahl_authority.css: {}
+  js:
+    js/ahl_authority.js: {}

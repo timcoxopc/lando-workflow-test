@@ -1,0 +1,6 @@
+panoptic_connector.config:
+ title: 'Panoptic Connector Settings'
+ description: 'Enter your verification code for Panoptic'
+ parent: system.admin_config_development
+ route_name: panoptic_connector.config
+ weight: 10

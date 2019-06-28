@@ -1,0 +1,30 @@
+#ahl-authority-deductions .form-control {
+  width: auto;
+}
+
+#ahl-authority-deductions .form-type-date,
+#ahl-authority-deductions .form-type-textfield {
+  display: inline-block;
+}
+
+.option-indent {
+  margin-left: 40px;
+  margin-bottom: 30px;
+}
+
+.options-container {
+  margin-left: 40px;
+}
+
+span.span-width {
+  width: 90px;
+  display: inline-block;
+}
+
+span.span-right-margin {
+  margin-right: 10px;
+}
+
+.customerName {
+  font-weight: bold;
+}

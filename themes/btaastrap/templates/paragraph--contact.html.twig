@@ -1,0 +1,27 @@
+{% if content.field_name|render or content.field_address|render or content.field_phone|render or content.field_email|render or content.field_link|render %}
+
+{% block paragraph %}
+    <div class="contacts col-sm-6 col-xs-12">
+
+        
+        
+        
+        {% if content.field_name|render %}
+            <p><strong>Name: </strong> {{paragraph.field_name.value}}</p>
+        {% endif %}
+        {% if content.field_phone|render %}
+            <p><strong>Phone: </strong> {{paragraph.field_phone.value}}</p>
+        {% endif %}
+        {% if content.field_email|render %}    
+            <p><strong>Email: </strong><a href="mailto:{{paragraph.field_email.value}}" >{{paragraph.field_email.value}}</a></p>
+        {% endif %}
+        {% if content.field_address|render %}   
+            <p><strong>Address: </strong> {{paragraph.field_phone.value}}</p>
+        {% endif %}
+        {% if content.field_link|render %}   
+            <p><strong>URL: </strong> <a href="{{paragraph.field_link.0.url}}">{{paragraph.field_link.0.url}}</a></p>
+            
+        {% endif %}
+    </div>
+{% endblock %}
+{% endif %}

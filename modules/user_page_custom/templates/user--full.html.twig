@@ -1,0 +1,131 @@
+{#
+
+<pre>
+    {{ dump(user|keys) }}
+</pre>
+<h2>Welcome to my User page</h2>
+
+{{- content -}}
+
+/* Custom Template for User page /user*/
+#}
+
+
+{{ attach_library('user_page_custom/global') }}
+
+<div class="container">
+    
+    <p>Hi {{ user.field_first_name.0.value }},</p>
+    <p>Please find below all your profile details. If you would like to update any details or your subscriptions, you can <a href="/user/{{user.uid.0.value}}/edit">edit your profile at any time.</a></p>
+    <p>For more information about becoming a Member of BTAA, you can visit <a href="/help-support/members">the Member page</a> or email BTAA at <a href="mailto:enquiries@btaa.org.au">enquiries@btaa.org.au</a></p>
+
+<h2>Membership Details</h2>
+<div class="information-container">
+{{ membership_view }}
+{{ product_view }}
+</div>
+
+<div class="row">
+    <div class="contact-details col-md-6 col-sm-12 left-column">
+        <h2>Contact Details</h2>
+        <div class="information-container">
+            <p><strong>Email Address:</strong> {{user.mail.value}}</p>
+            <p><strong>First Name: </strong>{{ user.field_first_name.0.value }}</p>
+            <p><strong>Last Name: </strong>{{ user.field_last_name.0.value }}</p>
+            <p><strong>Mobile Phone: </strong>{{ user.field_mobile_phone.0.value }}</p>
+            <p><strong>Home Phone: </strong>{{ user.field_user_home_phone.0.value }}</p>
+            <p><strong>Organisation: </strong>{{ user.field_organisation.0.value }}</p>
+            <p><strong>Job Title:</strong> {{ user.field_job_title.0.value }}</p>
+            <p><strong>Requestor Category: </strong>{{ user.field_requester_category.0.value }}</p>
+            {% if user.field_other.0.value %}
+            <p><strong>Other Category: </strong>{{ user.field_other.0.value }}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% if user.field_address.0.value|render or user.field_address_2.0.value|render  %}
+    <div class="address-details col-md-6 col-sm-12">
+        <h2>Address Details</h2>
+        <div class="information-container">
+            <p><strong>Address: </strong>{{ user.field_address.0.value }}
+            {{ user.field_address_2.0.value }}</p>
+            <p><strong>Suburb/Town/City: </strong>{{ user.field_suburb_town_city.0.value }}</p>
+            <p><strong>Postcode: </strong>{{ user.field_postcode.0.value }}</p>
+            <p><strong>State: </strong>{{ user.field_state.0.value }}</p>
+            <p><strong>Country: </strong>{{ user.field_country.0.value }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="row">
+    {% if user.field_child_age.0.value|render or user.field_childs_gender.0.value|render or user.field_sibling_details.0.value|render or user.field_how_many_siblings_does_thi.0.value|render %}
+        <div class="child-details col-md-6 col-sm-12 left-column">
+            <h2>Details of Children</h2>
+            <div class="information-container">
+                 <p><strong>Childs Age:</strong> {{ user.field_child_age.0.value }}</p>
+                 <p><strong>Childs Gender:</strong> {{ user.field_childs_gender.0.value }}</p>
+                 <p><strong>Number of Siblings:</strong> {{ user.field_sibling_details.0.value }}</p>
+                 <p><strong>Sibling Details:</strong> {{ user.field_how_many_siblings_does_thi.0.value }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+
+<div class="subscription-details col-md-6 col-sm-12">
+    <h2>Subscription Details</h2>
+        <div class="information-container">
+            <p><strong>Adult Brain Tumour Booklet:</strong> 
+                {% if user.field_adult_brain_tumour_primer.0.value == 0 %}
+                    Not Subscribed
+                {% elseif user.field_adult_brain_tumour_primer.0.value == 1 %}
+                     Subscribed
+                {% endif %}
+            </p>
+            <p><strong>Paediatric Handbook:</strong> 
+                {% if user.field_paediatric_handbook.0.value == 0 %}
+                    Not Subscribed
+                {% elseif user.field_paediatric_handbook.0.value == 1 %}
+                    Subscribed
+                {% endif %}
+            </p>
+            <p><strong>Meningioma Booklet:</strong> 
+                {% if user.field_meningioma_booklet.0.value == 0 %}
+                    Not Subscribed
+                {% elseif user.field_meningioma_booklet.0.value == 1 %}
+                    Subscribed
+                {% endif %}
+            </p>
+            <p><strong>BTAA e-News:</strong> 
+                {% if user.field_mailchimp_subscription.subscribe == 0 %}
+                    Not Subscribed
+                {% elseif user.field_mailchimp_subscription.subscribe == 1 %}
+                     Subscribed
+                {% endif %}
+            </p>
+            <p><strong>BTAA Magazine:</strong> 
+                {% if user.field_mailed_newsletter.0.value == 0 %}
+                    Not Subscribed
+                {% elseif user.field_mailed_newsletter.0.value == 1 %}
+                     Subscribed
+                {% endif %}
+            </p>
+            <p><strong>IBTA e-News:</strong> 
+                {% if user.field_ibta_enews.0.value == 0 %}
+                    Not Subscribed
+                {% elseif user.field_ibta_enews.0.value == 1 %}
+                    Subscribed
+                {% endif %}
+            </p>
+            <p><strong>IBTA Magazine:</strong> 
+                {% if user.field_ibta_magazine.0.value == 0 %}
+                    Not Subscribed
+                {% elseif user.field_ibta_magazine.0.value == 1 %}
+                    Subscribed
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+
+</div>

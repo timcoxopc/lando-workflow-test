@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+
+
+function btaastrap_preprocess_html(&$variables) {
+  $is_front_page = \Drupal::service('path.matcher')->isFrontPage();
+  if ($is_front_page) {
+    $variables['attributes']['class'][] = 'front';
+  }
+  else {
+    $variables['attributes']['class'][] = 'not-front';
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      $nid = $node->id();
+      $variables['attributes']['class'][] = 'node-' . $nid;
+    }
+  }
+}
+
+function btaastrap_suggestions_commerce_order(array $variables) {
+    $suggestions = array();
+    $suggestions[] = 'commerce_order__'.'btaamembership'.'__admin';
+    return $suggestions;
+}
+
+/*Layout Functions*/
+function btaastrap_preprocess_page(&$variables) {
+    $header_top_highlighted = $variables['page']['header_top_highlighted'];
+    $sidebar_first = $variables['page']['sidebar_first'];
+    $footer_first = $variables['page']['footer_first'];
+    $footer_second = $variables['page']['footer_second'];
+    $footer_third = $variables['page']['footer_third'];
+
+
+// Banner
+  $variables['banner_layout_container'] = theme_get_setting('banner_layout_container');
+
+
+// Header Top Highlighted
+  $variables['header_top_highlighted_layout_container'] = theme_get_setting('header_top_highlighted_layout_container');
+  
+// Main Content Layout 
+
+
+//Footer Layout
+
+$variables['footer_layout_container'] = theme_get_setting('footer_layout_container');
+
+if ($footer_first && $footer_second && $footer_third) {
+    $variables['footer_first_grid_class'] = 'col-xs-12 col-md-4';
+    $variables['footer_second_grid_class'] = 'col-xs-12 col-md-4';
+    $variables['footer_third_grid_class'] = 'col-xs-12 col-md-4';
+}
+elseif (($footer_first && $footer_second && !$footer_third) || (!$footer_first && $footer_second && $footer_third) || ($footer_first && !$footer_second && $footer_third)) {
+    $variables['footer_first_grid_class'] = 'col-xs-12 col-md-6';
+    $variables['footer_second_grid_class'] = 'col-xs-12 col-md-6';
+    $variables['footer_third_grid_class'] = 'col-xs-12 col-md-6';
+}
+elseif (($footer_first && !$footer_second && !$footer_third) || (!$footer_first && $footer_second && !$footer_third) || (!$footer_first && !$footer_second && $footer_third)) {
+    $variables['footer_first_grid_class'] = 'col-12';
+    $variables['footer_second_grid_class'] = 'col-12';
+    $variables['footer_third_grid_class'] = 'col-12';
+}
+}

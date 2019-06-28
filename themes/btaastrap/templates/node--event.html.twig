@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * BTAAStrap theme implementation to display a Event node.
+ */
+#}
+
+
+{% extends "node.html.twig" %}
+{% block node_side %}
+
+{% if content.field_event_dates|render or content.field_event_location|render or content.field_event_cost or content.field_event_rsvp|render or content.field_event_url|render %}
+    <div class="node__side col-sm-3 col-xs-12 order-2">
+      {% if content.field_event_dates|render or content.field_event_location|render or content.field_event_cost or content.field_event_rsvp|render or content.field_event_url|render %}
+        <div class="event__info">
+          {% if content.field_event_dates|render %}
+            <div class="event__info-item">
+              <span class="date-container">
+                  <h2>WHEN</h2>
+                <span class="date"><i class="fa fa-calendar" aria-hidden="true"></i> {{ content.field_event_dates.0 }}
+                </span>
+              </span>
+            </div>
+          {% endif %}
+          {% if content.field_event_location|render %}
+            <div class="event__info-item">
+                <h2>WHERE</h2>
+                <i class="fa fa-map-marker"></i> {{ node.field_event_location.value }}</div>
+          {% endif %}
+          {% if content.field_event_cost|render %}
+            <div class="event__info-item">
+                <h2>COST</h2>
+                {% for costs in content.field_event_cost['#items'].getValue() %}
+                   <p><span class="cost"> {{costs.value}} </span></p>
+                {% endfor %}
+                  
+                </div>
+               
+          {% endif %}
+          {% if content.field_event_rsvp|render %}
+            <div class="event__info-item">
+                <h2>Event registrations close</h2>
+                <span class="rsvp_date"><i class="fa fa-calendar" aria-hidden="true"></i> {{content.field_event_rsvp.0}}</span></div>
+          {% endif %}
+          {% if content.field_event_url|render %}
+            <div class="event__info-item">
+                <span class="more_info"><a class="button green-button" target="_blank" href="{{node.field_event_url.0.url}}">{{node.field_event_url.0.title}}</a></span>
+            </div>
+          {% endif %}
+        </div>
+        
+      {% endif %}
+      
+    </div>
+  {% endif %}
+  {% endblock %}
+  {% block content %}
+  <div class="node_content col-sm-9 col-xs-12 order-2" >
+  {{ content|without('field_event_dates', 'field_event_location', 'field_event_rsvp', 'field_event_url', 'field_event_cost', 'field_event_contact') }}
+  
+  <h2>Contact Details</h2>
+  {{ content.field_event_contact }}
+  
+  </div>
+  {% endblock %}

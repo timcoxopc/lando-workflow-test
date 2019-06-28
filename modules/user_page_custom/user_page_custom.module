@@ -1,0 +1,23 @@
+<?php 
+
+use Drupal\Core\Render\Element;
+
+function user_page_custom_preprocess_user(&$variables){
+    $variables['user'] = $variables['elements']['#user'];
+    
+    foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+  
+  $variables['membership_view'] = views_embed_view ('membership_details','block_1');
+  $variables['product_view'] = views_embed_view ('product_block','block_1');
+}
+  
+function user_page_custom_theme(){
+    $theme['user'] = [
+        'template' => 'user--full',
+        ];
+    return $theme;
+    
+}
+

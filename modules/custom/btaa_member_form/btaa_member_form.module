@@ -1,0 +1,42 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+
+function btaa_member_form_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+    $current_path = \Drupal::service('path.current')->getPath();
+	if ($form_id == 'user_register_form' && $current_path =='/user/register' || $form_id == 'user_register_form' && $current_path =='/product/new-member'){
+        $form['#theme']=['form__user_register_form'];
+        $form['actions']['submit']['#submit'] [] = 'btaa_member_form_submit';
+	}
+}
+
+function btaa_member_form_theme() {
+    $themes['form__user_register_form'] = ['render element' => 'form'];
+   
+    return $themes;
+}
+
+function btaa_member_form_submit($form, &$form_state) {
+    global $base_url;
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+      
+    if($user->get('field_become_a_paid_member_of_bt')->value) {
+        $url = Url::fromUri('internal:/product/new-member');
+        $destination = $url->toString();
+        $response = new RedirectResponse($request->getBasePath() + $destination);
+        $response->send();
+        
+        //$url = $base_url + "/product/new-member";
+        drupal_set_message(t('Become a paid member>>>' . $request->getBasePath() . $destination));
+        //$response = new Symfony\Component\HttpFoundation\RedirectResponse($url);
+        //$response->send();
+    } else {
+        drupal_set_message(t('Do not become a paid memeber'));    
+    }
+}
+
+

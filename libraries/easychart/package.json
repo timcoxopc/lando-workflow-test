@@ -13,7 +13,7 @@
   ],
   "main": "dist/ec.js",
   "dependencies": {
-    "highcharts": "^5.0.0",
+    "highcharts": "^8.2.0",
     "lodash.findindex": "^4.6.0"
   },
   "devDependencies": {

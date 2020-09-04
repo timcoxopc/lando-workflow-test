@@ -66,7 +66,7 @@
     "main-loop": "^3.2.0",
     "mediatorjs": "^0.1.4",
     "node-sass": "latest",
-    "papaparse": "^4.1.2",
+    "papaparse": "^5.3.0",
     "simple-color-picker": "0.1.0",
     "svg-browserify": "0.0.2",
     "uglify-js": "latest",
